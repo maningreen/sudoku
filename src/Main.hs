@@ -4,5 +4,4 @@ import Board
 import System.Random (getStdGen, setStdGen)
 
 main :: IO ()
-main = do 
-  getStdGen >>= printBoard . fst . generateBoard
+main = getStdGen >>= printBoard . fst . generateBoard
