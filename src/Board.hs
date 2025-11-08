@@ -1,7 +1,8 @@
-module Board (Item, Board, boardLength) where
+module Board (Item, Board, boardLength, genItem, generateColumn, generateBoard, printColumn, printBoard) where
 
 import System.Random
-import Util (genInfinite, replicateGen)
+import Util (replicateGen)
+import Data.List (intercalate)
 
 -- ##### TYPES ##### 
 
@@ -28,8 +29,19 @@ boardLength = 9
 genItem :: StdGen -> (Item, StdGen)
 genItem = randomR (1, boardLength)
 
-generateCollumn :: StdGen -> (Column, StdGen)
-generateCollumn = replicateGen boardLength genItem
+generateColumn :: StdGen -> (Column, StdGen)
+generateColumn = replicateGen boardLength genItem
 
 generateBoard :: StdGen -> (Board, StdGen)
-generateBoard = replicateGen boardLength generateCollumn
+generateBoard = replicateGen boardLength generateColumn
+
+-- ##### IO ####
+
+printColumn :: Column -> IO ()
+printColumn = mapM_ print
+
+printBoard :: Board -> IO ()
+printBoard xs 
+  | null xs = pure ()
+  | any null xs = pure ()
+  | otherwise = putStrLn (intercalate " " (map (show . head) xs)) >> printBoard (map (drop 1) xs)

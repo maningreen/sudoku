@@ -59,7 +59,7 @@ common warnings
 
 executable sudoku
     -- Import common warning flags.
-    import:           warnings
+    import:
 
     -- .hs or .lhs file containing the Main module.
     main-is:          Main.hs
